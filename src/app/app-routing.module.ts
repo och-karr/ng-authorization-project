@@ -1,25 +1,16 @@
-import {NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {LoginComponent} from './components/login/login.component';
-import {LoginComponentModule} from './components/login/login.component-module';
-import {AuthServiceModule} from './services/auth.service-module';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { LoginComponent } from './components/login/login.component';
+import { LoggedInComponent } from './components/logged-in/logged-in.component';
+import { LoginComponentModule } from './components/login/login.component-module';
+import { AuthServiceModule } from './services/auth.service-module';
+import { LoggedInComponentModule } from './components/logged-in/logged-in.component-module';
 
 @NgModule({
   imports: [RouterModule.forRoot([
-    // {path: 'auto-login', component: undefined},
-
-    // {
-    //   path: 'auto-login',
-    //   children: [
-    //     {
-    //       path: 'login',
-    //       component: LoginComponent
-    //     }
-    //   ]
-    // },
-
-    {path: 'login', component: LoginComponent}
-  ]), LoginComponentModule, AuthServiceModule],
+    { path: 'login', component: LoginComponent },
+    { path: 'logged-in', component: LoggedInComponent }
+  ]), LoginComponentModule, AuthServiceModule, LoggedInComponentModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule {
