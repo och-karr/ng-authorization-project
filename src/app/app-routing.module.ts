@@ -8,6 +8,7 @@ import { AuthServiceModule } from './services/auth.service-module';
 import { LoggedInComponentModule } from './components/logged-in/logged-in.component-module';
 import { HomeComponentModule } from './components/home/home.component-module';
 import {LoginGuard} from "./guards/login/login.guard";
+import {LoggedInTooComponent} from "./components/logged-in-too/logged-in-too.component";
 
 @NgModule({
   imports: [RouterModule.forRoot([
@@ -21,7 +22,13 @@ import {LoginGuard} from "./guards/login/login.guard";
       path: 'auto-login/logged-in',
       component: LoggedInComponent,
       canActivate: [LoginGuard],
-      data: {expected: true, redirectUrl: '/auto-login/login'}
+      data: {expected: true, redirectUrl: '/auto-login/login'},
+      children: [
+        {
+          path: 'logged-in-too',
+          component: LoggedInTooComponent
+        }
+      ]
     },
     { path: '', component: HomeComponent }
   ]), LoginComponentModule, AuthServiceModule, LoggedInComponentModule, HomeComponentModule],
