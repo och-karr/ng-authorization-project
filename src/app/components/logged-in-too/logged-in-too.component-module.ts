@@ -1,3 +1,4 @@
+import {NgModule} from '@angular/core';
 import { LoggedInTooComponent } from './logged-in-too.component';
 import {MatCardModule} from "@angular/material/card";
 
