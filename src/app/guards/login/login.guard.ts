@@ -11,8 +11,6 @@ export class LoginGuard implements CanActivate {
   canActivate(activatedRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
     return this._authService.loggedIn$.pipe(
       map((isLoggedIn) => {
-        console.log(isLoggedIn === activatedRoute.data['expected']);
-        console.log(activatedRoute.data['redirectUrl']);
         return isLoggedIn === activatedRoute.data['expected'] ? true : this._router.parseUrl(activatedRoute.data['redirectUrl'])
       })
     );
