@@ -13,21 +13,31 @@ import {LoggedInTooComponent} from "./components/logged-in-too/logged-in-too.com
 @NgModule({
   imports: [RouterModule.forRoot([
     {
-      path: 'auto-login/login',
-      component: LoginComponent,
-      canActivate: [LoginGuard],
-      data: {expected: false, redirectUrl: '/auto-login/logged-in'}
-    },
-    {
-      path: 'auto-login/logged-in',
-      component: LoggedInComponent,
-      canActivate: [LoginGuard],
-      data: {expected: true, redirectUrl: '/auto-login/login'},
+      path: 'auto-login',
       children: [
         {
-          path: 'logged-in-too',
-          component: LoggedInTooComponent
-        }
+          path: 'login',
+          component: LoginComponent,
+          canActivate: [LoginGuard],
+          data: {expected: false, redirectUrl: '/auto-login/logged-in'}
+        },
+        {
+          path: 'logged-in',
+          component: LoggedInComponent,
+          canActivate: [LoginGuard],
+          data: {expected: true, redirectUrl: '/auto-login/login'},
+          // children: [
+          //   { path: '', component: LoggedInComponent, pathMatch: 'full' },
+          // ],
+          loadChildren: () => LoggedInComponentModule
+          // loadChildren: () => import('./components/logged-in/logged-in.component-module').then(m => m.LoggedInComponentModule)
+          // children: [
+          //   {
+          //     path: 'logged-in-too',
+          //     component: LoggedInTooComponent
+          //   }
+          // ]
+        },
       ]
     },
     { path: '', component: HomeComponent }
