@@ -6,12 +6,12 @@ import {RouterModule} from "@angular/router";
 @NgModule({
   imports: [
     MatCardModule,
-    // RouterModule.forChild([
-    //   {
-    //     path: '',
-    //     component: LoggedInTooComponent
-    //   }
-    // ])
+    RouterModule.forChild([
+      {
+        path: 'logged-in-too',
+        component: LoggedInTooComponent
+      }
+    ])
   ],
   declarations: [LoggedInTooComponent],
   providers: [],

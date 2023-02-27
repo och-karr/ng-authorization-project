@@ -9,28 +9,11 @@ import {LoggedInTooComponentModule} from "../logged-in-too/logged-in-too.compone
 @NgModule({
   imports: [
     MatCardModule,
-    RouterOutlet,
-    RouterLink,
     MatButtonModule,
-    RouterModule.forChild([
-      // { path: '', component: LoggedInComponent, pathMatch: 'full'},
-      {
-        // path: 'logged-in',
-        // component: LoggedInComponent,
-        // path: 'logged-in',
-        // component: LoggedInComponent,
-        // children: [{ path: 'logged-in-too', component: LoggedInTooComponent }],
-        path: 'logged-in-too',
-        // pathMatch: 'full',
-        component: LoggedInTooComponent,
-        loadChildren: () => LoggedInTooComponentModule
-        // loadChildren: () => import('../logged-in-too/logged-in-too.component-module').then(m => m.LoggedInTooComponentModule)
-
-      }
-    ])
+    RouterOutlet,
+    RouterLink
   ],
   declarations: [LoggedInComponent],
-  providers: [],
   exports: [LoggedInComponent]
 })
 export class LoggedInComponentModule {

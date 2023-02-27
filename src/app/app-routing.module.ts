@@ -9,6 +9,7 @@ import { LoggedInComponentModule } from './components/logged-in/logged-in.compon
 import { HomeComponentModule } from './components/home/home.component-module';
 import {LoginGuard} from "./guards/login/login.guard";
 import {LoggedInTooComponent} from "./components/logged-in-too/logged-in-too.component";
+import {LoggedInTooComponentModule} from "./components/logged-in-too/logged-in-too.component-module";
 
 @NgModule({
   imports: [RouterModule.forRoot([
@@ -26,22 +27,24 @@ import {LoggedInTooComponent} from "./components/logged-in-too/logged-in-too.com
           component: LoggedInComponent,
           canActivate: [LoginGuard],
           data: {expected: true, redirectUrl: '/auto-login/login'},
-          // children: [
-          //   { path: '', component: LoggedInComponent, pathMatch: 'full' },
-          // ],
-          loadChildren: () => LoggedInComponentModule
-          // loadChildren: () => import('./components/logged-in/logged-in.component-module').then(m => m.LoggedInComponentModule)
+          loadChildren: () => LoggedInTooComponentModule
           // children: [
           //   {
+          //     path: '',
+          //     pathMatch: 'full',
+          //     loadChildren: () => LoggedInComponentModule
+          //   },
+          //   {
           //     path: 'logged-in-too',
-          //     component: LoggedInTooComponent
+          //     component: LoggedInTooComponent,
+          //     loadChildren: () => LoggedInTooComponentModule
           //   }
           // ]
         },
       ]
     },
     { path: '', component: HomeComponent }
-  ]), LoginComponentModule, AuthServiceModule, LoggedInComponentModule, HomeComponentModule],
+  ]), LoginComponentModule, AuthServiceModule, HomeComponentModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule {
