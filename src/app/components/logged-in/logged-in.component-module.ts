@@ -11,7 +11,15 @@ import {LoggedInTooComponentModule} from "../logged-in-too/logged-in-too.compone
     MatCardModule,
     MatButtonModule,
     RouterOutlet,
-    RouterLink
+    RouterLink,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: LoggedInComponent,
+        children: [{ path: 'logged-in-too', component: LoggedInTooComponent }],
+      },
+    ]),
+    LoggedInTooComponentModule,
   ],
   declarations: [LoggedInComponent],
   exports: [LoggedInComponent]

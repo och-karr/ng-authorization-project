@@ -24,10 +24,11 @@ import {LoggedInTooComponentModule} from "./components/logged-in-too/logged-in-t
         },
         {
           path: 'logged-in',
-          component: LoggedInComponent,
+          // component: LoggedInComponent,
           canActivate: [LoginGuard],
           data: {expected: true, redirectUrl: '/auto-login/login'},
-          loadChildren: () => LoggedInTooComponentModule
+          loadChildren: () => LoggedInComponentModule
+          // loadChildren: () => LoggedInTooComponentModule
           // children: [
           //   {
           //     path: '',
