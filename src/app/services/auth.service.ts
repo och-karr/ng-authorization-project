@@ -56,4 +56,10 @@ export class AuthService {
         })
       );
   }
+
+  logout() {
+    this._storage.removeItem('isLoggedIn');
+    this._storage.removeItem('accessToken');
+    this._storage.removeItem('refreshToken');
+  }
 }
