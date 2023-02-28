@@ -9,6 +9,7 @@ import {LoginGuard} from "./guards/login/login.guard";
 import {AuthService} from "./services/auth.service";
 import {AuthInterceptor} from "./auth.interceptor";
 import {RefreshInterceptor} from "./refresh.interceptor";
+import {STORAGE} from "./services/storage";
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {RefreshInterceptor} from "./refresh.interceptor";
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: RefreshInterceptor, multi: true },
+    { provide: STORAGE, useValue:localStorage },
     LoginGuard,
     AuthService
   ],
