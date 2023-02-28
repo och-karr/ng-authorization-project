@@ -12,8 +12,8 @@ import {Router} from "@angular/router";
 })
 export class LoginComponent {
   readonly form: FormGroup = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email,]),
-    password: new FormControl('', [Validators.required]),
+    email: new FormControl('test@lowgular.io', [Validators.required, Validators.email,]),
+    password: new FormControl('test@lowgular.io', [Validators.required]),
   });
 
   constructor(private _authService: AuthService, private _router: Router) {}
