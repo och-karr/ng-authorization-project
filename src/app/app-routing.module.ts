@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
-import { LoggedInComponent } from './components/logged-in/logged-in.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponentModule } from './components/login/login.component-module';
 import { AuthServiceModule } from './services/auth.service-module';
@@ -27,20 +26,18 @@ import {LoggedInTooComponentModule} from "./components/logged-in-too/logged-in-t
           // component: LoggedInComponent,
           canActivate: [LoginGuard],
           data: {expected: true, redirectUrl: '/auto-login/login'},
-          loadChildren: () => LoggedInComponentModule
-          // loadChildren: () => LoggedInTooComponentModule
-          // children: [
-          //   {
-          //     path: '',
-          //     pathMatch: 'full',
-          //     loadChildren: () => LoggedInComponentModule
-          //   },
-          //   {
-          //     path: 'logged-in-too',
-          //     component: LoggedInTooComponent,
-          //     loadChildren: () => LoggedInTooComponentModule
-          //   }
-          // ]
+          children: [
+            {
+              path: '',
+              pathMatch: 'full',
+              loadChildren: () => LoggedInComponentModule
+            },
+            {
+              path: 'logged-in-too',
+              component: LoggedInTooComponent,
+              loadChildren: () => LoggedInTooComponentModule
+            }
+          ]
         },
       ]
     },

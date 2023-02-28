@@ -3,7 +3,6 @@ import { LoggedInComponent } from './logged-in.component';
 import {MatCardModule} from "@angular/material/card";
 import {RouterLink, RouterModule, RouterOutlet} from "@angular/router";
 import {MatButtonModule} from "@angular/material/button";
-import {LoggedInTooComponent} from "../logged-in-too/logged-in-too.component";
 import {LoggedInTooComponentModule} from "../logged-in-too/logged-in-too.component-module";
 
 @NgModule({
@@ -15,8 +14,7 @@ import {LoggedInTooComponentModule} from "../logged-in-too/logged-in-too.compone
     RouterModule.forChild([
       {
         path: '',
-        component: LoggedInComponent,
-        children: [{ path: 'logged-in-too', component: LoggedInTooComponent }],
+        component: LoggedInComponent
       },
     ]),
     LoggedInTooComponentModule,
