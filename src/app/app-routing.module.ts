@@ -18,13 +18,13 @@ import {LoggedInTooComponentModule} from "./components/logged-in-too/logged-in-t
         {
           path: 'login',
           component: LoginComponent,
-          // canActivate: [LoginGuard],
-          // data: {expected: false, redirectUrl: '/auto-login/logged-in'}
+          canActivate: [LoginGuard],
+          data: {expected: false, redirectUrl: '/auto-login/logged-in'}
         },
         {
           path: 'logged-in',
-          // canActivate: [LoginGuard],
-          // data: {expected: true, redirectUrl: '/auto-login/login'},
+          canActivate: [LoginGuard],
+          data: {expected: true, redirectUrl: '/auto-login/login'},
           children: [
             {
               path: '',
