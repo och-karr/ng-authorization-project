@@ -1,4 +1,7 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import {Observable} from "rxjs";
+import {Router} from "@angular/router";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-logged-in',
@@ -8,4 +11,8 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoggedInComponent {
+  readonly userData$: Observable<any> = this._authService.getLoggedUser();
+
+  constructor(private _authService: AuthService, private _router: Router) {
+  }
 }

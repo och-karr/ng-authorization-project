@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {BehaviorSubject, Observable, tap} from 'rxjs';
+import {BehaviorSubject, Observable, of, switchMap, tap} from 'rxjs';
 
 @Injectable()
 export class AuthService {
@@ -19,14 +19,45 @@ export class AuthService {
   login(authData: any): any {
     return this._httpClient.post<any>('https://us-central1-courses-auth.cloudfunctions.net/auth/login', authData).pipe(
       tap((data) => {
-          this._loggedInSubject.next(true);
-          localStorage.setItem('isLoggedIn', 'true');
-          this._userAccessTokenSubject.next(data.data.accessToken);
-          localStorage.setItem('accessToken', data.data.accessToken);
-          this._userRefreshTokenSubject.next(data.data.refreshToken);
-          localStorage.setItem('refreshToken', data.data.accessToken);
+        this._loggedInSubject.next(true);
+        localStorage.setItem('isLoggedIn', 'true');
+        this._userAccessTokenSubject.next(data.data.accessToken);
+        localStorage.setItem('accessToken', data.data.accessToken);
+        this._userRefreshTokenSubject.next(data.data.refreshToken);
+        localStorage.setItem('refreshToken', data.data.refreshToken);
+      })
+    )
+  }
+
+  getLoggedUser(): Observable<any> {
+    return this._httpClient.get<any>('https://us-central1-courses-auth.cloudfunctions.net/auth/me' );
+  }
+
+  refreshLogin() {
+    let token: string | null = '';
+    this.userRefreshToken$.subscribe((value) => {
+      token = value;
+    });
+
+    return this._httpClient.post<any>(
+        'https://us-central1-courses-auth.cloudfunctions.net/auth/refresh',
+        {
+          data: {
+            refreshToken: token,
+          },
         }
       )
-    )
+      .pipe(
+        switchMap((credentials) => {
+          const accessToken = credentials.data.accessToken;
+          const refreshToken = credentials.data.refreshToken;
+          this._userAccessTokenSubject.next(accessToken);
+          this._userRefreshTokenSubject.next(refreshToken);
+          localStorage.setItem('accessToken', accessToken);
+          localStorage.setItem('refreshToken', refreshToken);
+
+          return of(credentials);
+        })
+      );
   }
 }

@@ -4,6 +4,7 @@ import {MatCardModule} from "@angular/material/card";
 import {RouterLink, RouterModule, RouterOutlet} from "@angular/router";
 import {MatButtonModule} from "@angular/material/button";
 import {LoggedInTooComponentModule} from "../logged-in-too/logged-in-too.component-module";
+import {AsyncPipe, JsonPipe} from "@angular/common";
 
 @NgModule({
   imports: [
@@ -18,6 +19,8 @@ import {LoggedInTooComponentModule} from "../logged-in-too/logged-in-too.compone
       },
     ]),
     LoggedInTooComponentModule,
+    AsyncPipe,
+    JsonPipe,
   ],
   declarations: [LoggedInComponent],
   exports: [LoggedInComponent]
