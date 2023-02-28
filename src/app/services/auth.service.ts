@@ -33,12 +33,7 @@ export class AuthService {
     return this._httpClient.get<any>('https://us-central1-courses-auth.cloudfunctions.net/auth/me' );
   }
 
-  refreshLogin() {
-    let token: string | null = '';
-    this.userRefreshToken$.subscribe((value) => {
-      token = value;
-    });
-
+  refreshLogin(token: any) {
     return this._httpClient.post<any>(
         'https://us-central1-courses-auth.cloudfunctions.net/auth/refresh',
         {
