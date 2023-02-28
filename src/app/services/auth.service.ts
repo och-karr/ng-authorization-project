@@ -2,6 +2,9 @@ import {Inject, Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {BehaviorSubject, Observable, of, switchMap, tap} from 'rxjs';
 import {STORAGE} from "./storage";
+import {AuthDataModel} from "../components/models/auth-data.model";
+import {AuthModel} from "../components/models/auth.model";
+import {TokenQueryModel} from "../components/query-models/token.query-model";
 
 @Injectable()
 export class AuthService {
@@ -17,9 +20,9 @@ export class AuthService {
   constructor(private _httpClient: HttpClient, @Inject(STORAGE) private _storage: Storage) {
   }
 
-  login(authData: any): any {
-    return this._httpClient.post<any>('https://us-central1-courses-auth.cloudfunctions.net/auth/login', authData).pipe(
-      tap((data) => {
+  login(authData: AuthModel<AuthDataModel>): Observable<void> {
+    return this._httpClient.post<AuthDataModel>('https://us-central1-courses-auth.cloudfunctions.net/auth/login', authData).pipe(
+      tap((data: any) => {
         this._loggedInSubject.next(true);
         this._storage.setItem('isLoggedIn', 'true');
         this._userAccessTokenSubject.next(data.data.accessToken);
@@ -30,12 +33,12 @@ export class AuthService {
     )
   }
 
-  getLoggedUser(): Observable<any> {
-    return this._httpClient.get<any>('https://us-central1-courses-auth.cloudfunctions.net/auth/me' );
+  getLoggedUser(): Observable<Object> {
+    return this._httpClient.get<Object>('https://us-central1-courses-auth.cloudfunctions.net/auth/me' );
   }
 
-  refreshLogin(token: any) {
-    return this._httpClient.post<any>(
+  refreshLogin(token: string | null) {
+    return this._httpClient.post<TokenQueryModel>(
         'https://us-central1-courses-auth.cloudfunctions.net/auth/refresh',
         {
           data: {
@@ -44,7 +47,7 @@ export class AuthService {
         }
       )
       .pipe(
-        switchMap((credentials) => {
+        switchMap((credentials: any) => {
           const accessToken = credentials.data.accessToken;
           const refreshToken = credentials.data.refreshToken;
           this._userAccessTokenSubject.next(accessToken);

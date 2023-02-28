@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse} from '@angular/common/http';
 import {catchError, Observable, switchMap, take, throwError} from 'rxjs';
-import {AuthService} from "./services/auth.service";
+import {AuthService} from "../services/auth.service";
 
 @Injectable()
 export class RefreshInterceptor implements HttpInterceptor {
@@ -13,7 +13,6 @@ export class RefreshInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((e: HttpErrorResponse) => {
         if (e.status === 403 && e.error.message === 'Token is invalid') {
-
           return this._authService.userRefreshToken$.pipe(
             take(1),
             switchMap((token: string | null) => {

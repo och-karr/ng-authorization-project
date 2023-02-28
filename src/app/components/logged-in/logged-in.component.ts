@@ -11,7 +11,7 @@ import {AuthService} from "../../services/auth.service";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoggedInComponent {
-  readonly userData$: Observable<any> = this._authService.getLoggedUser();
+  readonly userData$: Observable<Object> = this._authService.getLoggedUser();
 
   constructor(private _authService: AuthService, private _router: Router) {
   }
